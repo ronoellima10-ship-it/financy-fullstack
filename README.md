@@ -68,6 +68,8 @@ npm run build
 - Em produção, configure `JWT_SECRET`, `DATABASE_URL`, `PORT` e `VITE_BACKEND_URL`.
 - Como o SQLite grava em arquivo, a hospedagem do backend precisa usar armazenamento persistente.
 - Para aplicar as migrations em produção, execute `npm run prisma:deploy --workspace backend` antes de iniciar a API.
+- O GitHub Actions executa testes e build automaticamente em pushes e pull requests para `main`.
+- Consulte [DEPLOYMENT.md](./DEPLOYMENT.md) para executar os contêineres e preparar a publicação.
 
 ## Requisitos do desafio
 
