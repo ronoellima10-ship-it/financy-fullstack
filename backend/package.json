@@ -15,7 +15,8 @@
     "prisma:push": "prisma db push",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev --name init",
-    "prisma:deploy": "prisma migrate deploy"
+    "prisma:deploy": "prisma migrate deploy",
+    "vercel-build": "prisma generate"
   },
   "prisma": {
     "seed": "node --import tsx prisma/seed.ts"

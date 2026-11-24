@@ -45,7 +45,25 @@ docker compose exec backend npm run seed --workspace backend
 
 O contêiner do backend aplica as migrations automaticamente antes de iniciar a API. O SQLite não deve ser hospedado em um sistema de arquivos efêmero.
 
-## Demonstração acadêmica gratuita no Koyeb
+## Backend acadêmico gratuito na Vercel
+
+O backend pode ser publicado como uma Vercel Function no plano Hobby. Em cada
+nova instância, a função copia o banco demonstrativo para o diretório temporário
+`/tmp`. Os dados criados durante o uso podem ser reiniciados em um novo cold
+start, comportamento aceitável para esta demonstração acadêmica.
+
+1. Importe o repositório `ronoellima10-ship-it/financy-fullstack` na Vercel.
+2. Selecione `backend` em **Root Directory**.
+3. Mantenha **Other** como framework.
+4. Cadastre somente `JWT_SECRET`, usando uma chave longa e aleatória.
+5. Faça o deploy e use o endpoint público `/graphql`.
+
+Conta demonstrativa:
+
+- E-mail: `demo@financy.com`
+- Senha: `Financy123`
+
+## Demonstração acadêmica no Koyeb (indisponível para novas contas gratuitas)
 
 O plano gratuito do Koyeb não oferece volume persistente. Para uma demonstração acadêmica, configure o serviço para recriar os dados de exemplo sempre que um novo contêiner for iniciado.
 
