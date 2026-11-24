@@ -94,4 +94,6 @@ Pré-requisito: Node.js 20 ou superior.
 - O dashboard consome dados reais da API e exibe resumo financeiro, transações recentes e categorias
 - `/transacoes`: lista as movimentações com busca, filtros por tipo, categoria e período, além de paginação
 - `/transacoes/nova`: abre o formulário de criação; a mesma interface permite editar e excluir transações
+- `/categorias`: apresenta indicadores e cards das categorias com quantidade de transações
+- `/categorias/nova`: abre o formulário com seleção de ícone e cor; categorias também podem ser editadas ou excluídas
 
