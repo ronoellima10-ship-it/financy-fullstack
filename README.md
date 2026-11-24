@@ -21,6 +21,8 @@ financy-fullstack/
 
 ## Configuração
 
+Pré-requisito: Node.js 20 ou superior.
+
 1. Instale as dependências na raiz:
 
    ```bash
@@ -82,4 +84,11 @@ financy-fullstack/
 ### Dashboard autenticado
 
 - `dashboard(referenceDate: DateTime)`: retorna saldo total, receitas e despesas do mês, cinco transações recentes e resumo mensal por categoria
+
+## Autenticação no frontend
+
+- `/login`: autentica o usuário e permite escolher entre sessão temporária ou persistente
+- `/cadastro`: cria a conta e inicia a sessão automaticamente
+- O Apollo Client envia o JWT no cabeçalho `Authorization` das operações autenticadas
+- As telas utilizam CSS Modules e os componentes visuais do Figma do Financy
 

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
@@ -11,15 +14,16 @@
     "prisma:migrate": "prisma migrate dev --name init"
   },
   "dependencies": {
-    "@apollo/server": "^4.11.3",
+    "@apollo/server": "^5.5.2",
     "@prisma/client": "^6.2.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.7",
-    "graphql": "^16.10.0",
+    "graphql": "^16.11.0",
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.7",
+    "@types/bcryptjs": "^2.4.6",
     "prisma": "^6.2.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"

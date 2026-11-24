@@ -1,4 +1,3 @@
-import { Prisma } from "@prisma/client";
 import { GraphQLError } from "graphql";
 
 import { prisma } from "../../lib/prisma.js";
@@ -112,7 +111,7 @@ export async function deleteCategory(id: string, userId: string) {
     await prisma.category.delete({ where: { id } });
     return true;
   } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2003") {
+    if (isPrismaError(error, "P2003")) {
       throw new GraphQLError("Não é possível excluir uma categoria que possui transações.", {
         extensions: { code: "BAD_USER_INPUT" },
       });
@@ -136,11 +135,15 @@ async function ensureCategoryOwnership(id: string, userId: string) {
 }
 
 function handleCategoryDatabaseError(error: unknown): never {
-  if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
+  if (isPrismaError(error, "P2002")) {
     throw new GraphQLError("Já existe uma categoria com este nome.", {
       extensions: { code: "BAD_USER_INPUT" },
     });
   }
 
   throw error;
+}
+
+function isPrismaError(error: unknown, code: string): error is { code: string } {
+  return typeof error === "object" && error !== null && "code" in error && error.code === code;
 }

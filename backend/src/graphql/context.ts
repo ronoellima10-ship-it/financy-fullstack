@@ -6,7 +6,9 @@ export type GraphQLContext = {
   userId: string | null;
 };
 
-export function createContext({ req }: StandaloneServerContextFunctionArgument): GraphQLContext {
+export async function createContext({
+  req,
+}: StandaloneServerContextFunctionArgument): Promise<GraphQLContext> {
   const payload = readAuthToken(req.headers.authorization);
 
   return {
