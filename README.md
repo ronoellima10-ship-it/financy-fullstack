@@ -65,12 +65,17 @@ npm run build
 ```
 
 - Os testes verificam autenticação JWT e validações de usuário.
-- Em produção, configure `JWT_SECRET`, `DATABASE_URL`, `PORT` e `VITE_BACKEND_URL`.
-- Como o SQLite grava em arquivo, a hospedagem do backend precisa usar armazenamento persistente.
+- Os testes de integração também verificam o CRUD de transações e categorias e o isolamento dos dados entre usuários.
+- Em uma instalação convencional, configure `JWT_SECRET`, `DATABASE_URL`, `PORT` e `VITE_BACKEND_URL`.
 - Para aplicar as migrations em produção, execute `npm run prisma:deploy --workspace backend` antes de iniciar a API.
 - O GitHub Actions executa testes e build automaticamente em pushes e pull requests para `main`.
-- Consulte [DEPLOYMENT.md](./DEPLOYMENT.md) para executar os contêineres e preparar a publicação.
-- Para a apresentação acadêmica no Koyeb Free, use `SEED_ON_START=true`; o banco e a conta demonstrativa serão recriados automaticamente quando necessário.
+- Consulte [DEPLOYMENT.md](./DEPLOYMENT.md) para executar os contêineres ou consultar a configuração utilizada na Vercel.
+- A demonstração acadêmica usa SQLite temporário na Vercel. Os dados de exemplo são recriados automaticamente quando uma nova instância é iniciada.
+
+## Aplicação publicada
+
+- Frontend: <https://financy-frontend-beryl.vercel.app/login>
+- API GraphQL: <https://financy-backend.vercel.app/graphql>
 
 ## Requisitos do desafio
 
