@@ -63,3 +63,11 @@ financy-fullstack/
 - `me`: retorna o usuário autenticado usando `Authorization: Bearer <token>`
 - `health`: verifica se a API está disponível
 
+### Categorias autenticadas
+
+- `categories`: lista as categorias do usuário
+- `category(id: ID!)`: consulta uma categoria do usuário
+- `createCategory(input: CreateCategoryInput!)`: cria uma categoria
+- `updateCategory(id: ID!, input: UpdateCategoryInput!)`: edita uma categoria
+- `deleteCategory(id: ID!)`: exclui uma categoria sem transações vinculadas
+
