@@ -1,6 +1,7 @@
 {
   "name": "@financy/backend",
   "version": "1.0.0",
+  "description": "API GraphQL do projeto acadêmico Financy",
   "private": true,
   "type": "module",
   "engines": {
