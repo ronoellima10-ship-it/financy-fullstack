@@ -43,11 +43,31 @@ Pré-requisito: Node.js 20 ou superior.
    npm run prisma:migrate --workspace backend
    ```
 
+   Para carregar uma conta de demonstração com categorias e transações:
+
+   ```bash
+   npm run seed
+   ```
+
+   Login: `demo@financy.com` — senha: `Financy123`
+
 4. Inicie frontend e backend:
 
    ```bash
    npm run dev
    ```
+
+## Qualidade e entrega
+
+```bash
+npm test
+npm run build
+```
+
+- Os testes verificam autenticação JWT e validações de usuário.
+- Em produção, configure `JWT_SECRET`, `DATABASE_URL`, `PORT` e `VITE_BACKEND_URL`.
+- Como o SQLite grava em arquivo, a hospedagem do backend precisa usar armazenamento persistente.
+- Para aplicar as migrations em produção, execute `npm run prisma:deploy --workspace backend` antes de iniciar a API.
 
 ## Requisitos do desafio
 
