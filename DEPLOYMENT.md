@@ -44,3 +44,30 @@ docker compose exec backend npm run seed --workspace backend
 5. Recompile o frontend sempre que a URL da API mudar.
 
 O contêiner do backend aplica as migrations automaticamente antes de iniciar a API. O SQLite não deve ser hospedado em um sistema de arquivos efêmero.
+
+## Demonstração acadêmica gratuita no Koyeb
+
+O plano gratuito do Koyeb não oferece volume persistente. Para uma demonstração acadêmica, configure o serviço para recriar os dados de exemplo sempre que um novo contêiner for iniciado.
+
+Configuração do serviço:
+
+| Campo | Valor |
+| --- | --- |
+| Repositório | `ronoellima10-ship-it/financy-fullstack` |
+| Branch | `main` |
+| Builder | Dockerfile |
+| Dockerfile | `backend/Dockerfile` |
+| Porta | `4000` |
+| Rota | `/` |
+
+Variáveis:
+
+```env
+DATABASE_URL=file:/app/backend/prisma/financy.db
+JWT_SECRET=gere-uma-chave-secreta-forte
+PORT=4000
+NODE_ENV=production
+SEED_ON_START=true
+```
+
+Com `SEED_ON_START=true`, o processo aplica as migrations, cria a conta demonstrativa e inicia a API. Caso o armazenamento temporário seja apagado, os dados necessários para a apresentação são restaurados automaticamente.

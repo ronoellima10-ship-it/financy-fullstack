@@ -20,4 +20,4 @@ COPY --from=build /app/backend/dist ./backend/dist
 COPY --from=build /app/backend/prisma ./backend/prisma
 
 EXPOSE 4000
-CMD ["sh", "-c", "npx prisma migrate deploy --schema backend/prisma/schema.prisma && node backend/dist/server.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy --schema backend/prisma/schema.prisma && if [ \"$SEED_ON_START\" = \"true\" ]; then npm run seed --workspace backend; fi && node backend/dist/server.js"]

@@ -70,6 +70,7 @@ npm run build
 - Para aplicar as migrations em produção, execute `npm run prisma:deploy --workspace backend` antes de iniciar a API.
 - O GitHub Actions executa testes e build automaticamente em pushes e pull requests para `main`.
 - Consulte [DEPLOYMENT.md](./DEPLOYMENT.md) para executar os contêineres e preparar a publicação.
+- Para a apresentação acadêmica no Koyeb Free, use `SEED_ON_START=true`; o banco e a conta demonstrativa serão recriados automaticamente quando necessário.
 
 ## Requisitos do desafio
 
