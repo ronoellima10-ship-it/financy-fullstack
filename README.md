@@ -56,3 +56,10 @@ financy-fullstack/
 - API GraphQL
 - Interface baseada no Figma oficial do Financy
 
+## Operações iniciais da API
+
+- `register(input: RegisterInput!)`: cria uma conta e retorna o JWT
+- `login(input: LoginInput!)`: autentica o usuário e retorna o JWT
+- `me`: retorna o usuário autenticado usando `Authorization: Bearer <token>`
+- `health`: verifica se a API está disponível
+
