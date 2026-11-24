@@ -96,4 +96,5 @@ Pré-requisito: Node.js 20 ou superior.
 - `/transacoes/nova`: abre o formulário de criação; a mesma interface permite editar e excluir transações
 - `/categorias`: apresenta indicadores e cards das categorias com quantidade de transações
 - `/categorias/nova`: abre o formulário com seleção de ícone e cor; categorias também podem ser editadas ou excluídas
+- `/perfil`: permite atualizar o nome do usuário e encerrar a sessão com limpeza do token e do cache local
 

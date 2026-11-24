@@ -16,7 +16,7 @@ import {
   listTransactions,
   updateTransaction,
 } from "../modules/transactions/transaction.service.js";
-import { findUserById, loginUser, registerUser } from "../modules/users/user.service.js";
+import { findUserById, loginUser, registerUser, updateUserProfile } from "../modules/users/user.service.js";
 import type { GraphQLContext } from "./context.js";
 
 export const typeDefs = `#graphql
@@ -89,6 +89,10 @@ export const typeDefs = `#graphql
     password: String!
   }
 
+  input UpdateProfileInput {
+    name: String!
+  }
+
   input CreateCategoryInput {
     name: String!
     description: String
@@ -134,6 +138,7 @@ export const typeDefs = `#graphql
   type Mutation {
     register(input: RegisterInput!): AuthPayload!
     login(input: LoginInput!): AuthPayload!
+    updateProfile(input: UpdateProfileInput!): User!
     createCategory(input: CreateCategoryInput!): Category!
     updateCategory(id: ID!, input: UpdateCategoryInput!): Category!
     deleteCategory(id: ID!): Boolean!
@@ -222,6 +227,11 @@ export const resolvers = {
       registerUser(args.input),
     login: (_parent: unknown, args: { input: Parameters<typeof loginUser>[0] }) =>
       loginUser(args.input),
+    updateProfile: (
+      _parent: unknown,
+      args: { input: Parameters<typeof updateUserProfile>[1] },
+      context: GraphQLContext,
+    ) => updateUserProfile(requireUserId(context.userId), args.input),
     createCategory: (
       _parent: unknown,
       args: { input: Parameters<typeof createCategory>[1] },

@@ -96,6 +96,22 @@ export function findUserById(id: string) {
   });
 }
 
+export function updateUserProfile(id: string, input: { name: string }) {
+  const name = input.name.trim();
+
+  if (name.length < 2) {
+    throw new GraphQLError("O nome deve possuir pelo menos 2 caracteres.", {
+      extensions: { code: "BAD_USER_INPUT" },
+    });
+  }
+
+  return prisma.user.update({
+    where: { id },
+    data: { name },
+    select: publicUserSelect,
+  });
+}
+
 function invalidCredentialsError() {
   return new GraphQLError("E-mail ou senha inválidos.", {
     extensions: { code: "UNAUTHENTICATED" },
