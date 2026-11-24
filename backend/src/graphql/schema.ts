@@ -8,6 +8,7 @@ import {
   listCategories,
   updateCategory,
 } from "../modules/categories/category.service.js";
+import { getDashboard } from "../modules/dashboard/dashboard.service.js";
 import {
   createTransaction,
   deleteTransaction,
@@ -62,6 +63,21 @@ export const typeDefs = `#graphql
     updatedAt: DateTime!
   }
 
+  type CategorySummary {
+    category: Category!
+    transactionCount: Int!
+    totalAmount: Float!
+  }
+
+  type Dashboard {
+    totalBalance: Float!
+    monthlyIncome: Float!
+    monthlyExpense: Float!
+    referenceMonth: DateTime!
+    recentTransactions: [Transaction!]!
+    categorySummary: [CategorySummary!]!
+  }
+
   input RegisterInput {
     name: String!
     email: String!
@@ -112,6 +128,7 @@ export const typeDefs = `#graphql
     category(id: ID!): Category!
     transactions: [Transaction!]!
     transaction(id: ID!): Transaction!
+    dashboard(referenceDate: DateTime): Dashboard!
   }
 
   type Mutation {
@@ -194,6 +211,11 @@ export const resolvers = {
 
       return transaction;
     },
+    dashboard: (
+      _parent: unknown,
+      args: { referenceDate?: string | Date | null },
+      context: GraphQLContext,
+    ) => getDashboard(requireUserId(context.userId), args.referenceDate),
   },
   Mutation: {
     register: (_parent: unknown, args: { input: Parameters<typeof registerUser>[0] }) =>

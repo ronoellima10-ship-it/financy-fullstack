@@ -79,3 +79,7 @@ financy-fullstack/
 - `updateTransaction(id: ID!, input: UpdateTransactionInput!)`: edita uma transação
 - `deleteTransaction(id: ID!)`: exclui uma transação
 
+### Dashboard autenticado
+
+- `dashboard(referenceDate: DateTime)`: retorna saldo total, receitas e despesas do mês, cinco transações recentes e resumo mensal por categoria
+
