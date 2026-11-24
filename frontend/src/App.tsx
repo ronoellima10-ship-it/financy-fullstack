@@ -4,6 +4,7 @@ import { hasAuthToken } from "./auth/auth-storage";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { DashboardPage } from "./pages/DashboardPage";
+import { TransactionsPage } from "./pages/TransactionsPage";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   return hasAuthToken() ? children : <Navigate to="/login" replace />;
@@ -19,6 +20,14 @@ export function App() {
         element={
           <ProtectedRoute>
             <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/transacoes/*"
+        element={
+          <ProtectedRoute>
+            <TransactionsPage />
           </ProtectedRoute>
         }
       />

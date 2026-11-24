@@ -92,4 +92,6 @@ Pré-requisito: Node.js 20 ou superior.
 - O Apollo Client envia o JWT no cabeçalho `Authorization` das operações autenticadas
 - As telas utilizam CSS Modules e os componentes visuais do Figma do Financy
 - O dashboard consome dados reais da API e exibe resumo financeiro, transações recentes e categorias
+- `/transacoes`: lista as movimentações com busca, filtros por tipo, categoria e período, além de paginação
+- `/transacoes/nova`: abre o formulário de criação; a mesma interface permite editar e excluir transações
 
