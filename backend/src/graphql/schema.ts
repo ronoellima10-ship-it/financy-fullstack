@@ -8,6 +8,13 @@ import {
   listCategories,
   updateCategory,
 } from "../modules/categories/category.service.js";
+import {
+  createTransaction,
+  deleteTransaction,
+  findTransactionById,
+  listTransactions,
+  updateTransaction,
+} from "../modules/transactions/transaction.service.js";
 import { findUserById, loginUser, registerUser } from "../modules/users/user.service.js";
 import type { GraphQLContext } from "./context.js";
 
@@ -38,6 +45,23 @@ export const typeDefs = `#graphql
     updatedAt: DateTime!
   }
 
+  enum TransactionType {
+    INCOME
+    EXPENSE
+  }
+
+  type Transaction {
+    id: ID!
+    title: String!
+    amount: Float!
+    type: TransactionType!
+    date: DateTime!
+    description: String
+    category: Category!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+  }
+
   input RegisterInput {
     name: String!
     email: String!
@@ -63,11 +87,31 @@ export const typeDefs = `#graphql
     color: String
   }
 
+  input CreateTransactionInput {
+    title: String!
+    amount: Float!
+    type: TransactionType!
+    date: DateTime!
+    description: String
+    categoryId: ID!
+  }
+
+  input UpdateTransactionInput {
+    title: String
+    amount: Float
+    type: TransactionType
+    date: DateTime
+    description: String
+    categoryId: ID
+  }
+
   type Query {
     health: String!
     me: User!
     categories: [Category!]!
     category(id: ID!): Category!
+    transactions: [Transaction!]!
+    transaction(id: ID!): Transaction!
   }
 
   type Mutation {
@@ -76,6 +120,9 @@ export const typeDefs = `#graphql
     createCategory(input: CreateCategoryInput!): Category!
     updateCategory(id: ID!, input: UpdateCategoryInput!): Category!
     deleteCategory(id: ID!): Boolean!
+    createTransaction(input: CreateTransactionInput!): Transaction!
+    updateTransaction(id: ID!, input: UpdateTransactionInput!): Transaction!
+    deleteTransaction(id: ID!): Boolean!
   }
 `;
 
@@ -89,6 +136,12 @@ export const resolvers = {
   Category: {
     transactionCount: (category: { _count?: { transactions: number } }) =>
       category._count?.transactions ?? 0,
+  },
+  Transaction: {
+    amount: (transaction: { amount: { toNumber?: () => number } | number }) =>
+      typeof transaction.amount === "number"
+        ? transaction.amount
+        : transaction.amount.toNumber?.() ?? Number(transaction.amount),
   },
   Query: {
     health: () => "Financy API online",
@@ -121,6 +174,26 @@ export const resolvers = {
 
       return category;
     },
+    transactions: (_parent: unknown, _args: unknown, context: GraphQLContext) =>
+      listTransactions(requireUserId(context.userId)),
+    transaction: async (
+      _parent: unknown,
+      args: { id: string },
+      context: GraphQLContext,
+    ) => {
+      const transaction = await findTransactionById(
+        args.id,
+        requireUserId(context.userId),
+      );
+
+      if (!transaction) {
+        throw new GraphQLError("Transação não encontrada.", {
+          extensions: { code: "NOT_FOUND" },
+        });
+      }
+
+      return transaction;
+    },
   },
   Mutation: {
     register: (_parent: unknown, args: { input: Parameters<typeof registerUser>[0] }) =>
@@ -142,5 +215,20 @@ export const resolvers = {
       args: { id: string },
       context: GraphQLContext,
     ) => deleteCategory(args.id, requireUserId(context.userId)),
+    createTransaction: (
+      _parent: unknown,
+      args: { input: Parameters<typeof createTransaction>[1] },
+      context: GraphQLContext,
+    ) => createTransaction(requireUserId(context.userId), args.input),
+    updateTransaction: (
+      _parent: unknown,
+      args: { id: string; input: Parameters<typeof updateTransaction>[2] },
+      context: GraphQLContext,
+    ) => updateTransaction(args.id, requireUserId(context.userId), args.input),
+    deleteTransaction: (
+      _parent: unknown,
+      args: { id: string },
+      context: GraphQLContext,
+    ) => deleteTransaction(args.id, requireUserId(context.userId)),
   },
 };

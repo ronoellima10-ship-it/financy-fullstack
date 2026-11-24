@@ -71,3 +71,11 @@ financy-fullstack/
 - `updateCategory(id: ID!, input: UpdateCategoryInput!)`: edita uma categoria
 - `deleteCategory(id: ID!)`: exclui uma categoria sem transações vinculadas
 
+### Transações autenticadas
+
+- `transactions`: lista as transações do usuário por data decrescente
+- `transaction(id: ID!)`: consulta uma transação do usuário
+- `createTransaction(input: CreateTransactionInput!)`: cria uma receita ou despesa
+- `updateTransaction(id: ID!, input: UpdateTransactionInput!)`: edita uma transação
+- `deleteTransaction(id: ID!)`: exclui uma transação
+
