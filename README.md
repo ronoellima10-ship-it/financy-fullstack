@@ -91,4 +91,5 @@ Pré-requisito: Node.js 20 ou superior.
 - `/cadastro`: cria a conta e inicia a sessão automaticamente
 - O Apollo Client envia o JWT no cabeçalho `Authorization` das operações autenticadas
 - As telas utilizam CSS Modules e os componentes visuais do Figma do Financy
+- O dashboard consome dados reais da API e exibe resumo financeiro, transações recentes e categorias
 

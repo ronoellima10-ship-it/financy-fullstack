@@ -3,18 +3,10 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { hasAuthToken } from "./auth/auth-storage";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
+import { DashboardPage } from "./pages/DashboardPage";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   return hasAuthToken() ? children : <Navigate to="/login" replace />;
-}
-
-function DashboardPlaceholder() {
-  return (
-    <main style={{ padding: "3rem" }}>
-      <h1>Dashboard</h1>
-      <p>Autenticação concluída. O dashboard será implementado na próxima etapa.</p>
-    </main>
-  );
 }
 
 export function App() {
@@ -26,7 +18,7 @@ export function App() {
         path="/dashboard"
         element={
           <ProtectedRoute>
-            <DashboardPlaceholder />
+            <DashboardPage />
           </ProtectedRoute>
         }
       />
